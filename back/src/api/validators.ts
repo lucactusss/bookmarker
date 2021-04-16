@@ -1,11 +1,6 @@
-import validateLoginSchema from '../validators/validateLogin.json';
-import validateCreateUserSchema from '../validators/validateCreateUser.json';
-import { validate } from 'jsonschema';
+import validateCreateLinkSchema from '../validators/validateCreateLink.json';
+import { validate, ValidatorResult } from 'jsonschema';
 
-export function validateLogin(body: unknown): boolean {
-  return validate(body, validateLoginSchema).valid;
-}
-
-export function validateCreateUser(body: unknown): boolean {
-  return validate(body, validateCreateUserSchema).valid;
+export function validateCreateLink(body: unknown): ValidatorResult {
+  return validate(body, validateCreateLinkSchema);
 }

@@ -7,12 +7,12 @@ services:
     ports:
       - "4003:4003"
     depends_on:
-      - mongo-database
-  mongo-database:
+      - bookmarker-database
+  bookmarker-database:
     image: mongo:4.2
-    container_name: mongo-database
+    container_name: bookmarker-database
     environment:
-      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE:-thullo}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE:-bookmarker}
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-admin}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-#10D}
     volumes:

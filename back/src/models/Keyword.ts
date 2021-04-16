@@ -1,17 +1,14 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 
-export class User {
+export class Keyword {
   // Mongoose validation goes inside the @Props arguments
   @prop({ type: () => String, required: true, unique: true })
-  email!: string;
+  label!: string;
 
   @prop({ type: () => String, required: true })
-  firstName!: string;
-
-  @prop({ type: () => String, required: true })
-  lastName!: string;
+  color!: string;
 }
 
-const UserModel = getModelForClass(User);
+const KeywordModel = getModelForClass(Keyword);
 
-export default UserModel;
+export default KeywordModel;

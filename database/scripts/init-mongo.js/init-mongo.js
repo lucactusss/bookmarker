@@ -1,14 +1,16 @@
 db.createUser({
-  user: 'thullo',
-  pwd: '*thullo',
+  user: 'bookmarker',
+  pwd: '*Bookmarker',
   roles: [
     {
       role: 'dbOwner',
-      db: 'thullo'
+      db: 'bookmarker'
     }
   ]
 });
 
-db = db.getSiblingDB('thullo');
+db = db.getSiblingDB('bookmarker');
 
-db.createCollection('User');
+db.createCollection('VideoLink');
+db.createCollection('PhotoLink');
+db.createCollection('Keyword');

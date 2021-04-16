@@ -1,10 +1,10 @@
 {
-  "name": "thullo",
+  "name": "bookmarker",
   "version": "0.0.1",
   "description": "thullo main project",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lucactusss/thullo-devchallenge.git"
+    "url": "git+https://github.com/lucactusss/bookmarker.git"
   },
   "keywords": [
     "ngshop",
@@ -18,9 +18,9 @@
   "author": "Lucas Martin-Chabalier",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lucactusss/thullo-devchallenge/issues"
+    "url": "https://github.com/lucactusss/bookmarker/issues"
   },
-  "homepage": "https://github.com/lucactusss/thullo-devchallenge#readme",
+  "homepage": "https://github.com/lucactusss/bookmarker#readme",
   "scripts": {
     "lint": "lerna run lint --stream",
     "test": "lerna run test --stream",

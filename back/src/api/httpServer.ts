@@ -80,7 +80,7 @@ class HttpServer {
   public listen(rootContext: Context, emojiToShow: string): void {
     this.app.listen(this.port, () => {
       rootContext.logger.info(
-        `${emojiToShow}  Thullo backend is running at port ${this.port}`
+        `${emojiToShow}  Bookmarker backend is running at port ${this.port}`
       );
     });
   }
