@@ -1,0 +1,23 @@
+{
+  "include": ["./"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "target": "es6",
+    "module": "commonjs",
+    "rootDir": "./",
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "strict": true,
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "types": ["jest", "node"]
+  },
+  "typedocOptions": {
+    "name": "Backend documentation",
+    "entryPoints": ["./"],
+    "highlightTheme": "dark-plus",
+    "out": "generated/typedoc",
+    "excludeTags": ["apidefine"]
+  }
+}
