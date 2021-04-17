@@ -43,3 +43,53 @@ export class GetLinkListOptions {
     this._pageSize = value;
   }
 }
+
+/**
+ * Class used to represent the parameters of the addKeywordToLink API
+ */
+export class AddKeywordToLinkOptions {
+  private _linkId: string;
+  private _keywordId?: string | undefined;
+  private _color?: string | undefined;
+  private _label?: string | undefined;
+
+  constructor(
+    linkId: string,
+    keywordId?: string,
+    color?: string,
+    label?: string
+  ) {
+    this._linkId = linkId;
+    this._keywordId = keywordId;
+    this._color = color;
+    this._label = label;
+  }
+
+  public get linkId(): string {
+    return this._linkId;
+  }
+  public set linkId(value: string) {
+    this._linkId = value;
+  }
+
+  public get keywordId(): string | undefined {
+    return this._keywordId;
+  }
+  public set keywordId(value: string | undefined) {
+    this._keywordId = value;
+  }
+
+  public get color(): string | undefined {
+    return this._color;
+  }
+  public set color(value: string | undefined) {
+    this._color = value;
+  }
+
+  public get label(): string | undefined {
+    return this._label;
+  }
+  public set label(value: string | undefined) {
+    this._label = value;
+  }
+}

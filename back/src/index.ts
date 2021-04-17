@@ -2,8 +2,8 @@ import { configuration } from './configuration';
 import { Context } from './infra/logging/Context';
 import { emoji } from 'node-emoji';
 import HttpServer from './api/httpServer';
-import LinkController from './api/controllers/linkController';
-import KeywordController from './api/controllers/keywordController';
+import LinkController from './api/controllers/link.controller';
+import KeywordController from './api/controllers/keyword.controller';
 
 const PORT = 4003;
 
