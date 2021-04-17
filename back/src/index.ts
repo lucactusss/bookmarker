@@ -3,6 +3,7 @@ import { Context } from './infra/logging/Context';
 import { emoji } from 'node-emoji';
 import HttpServer from './api/httpServer';
 import LinkController from './api/controllers/linkController';
+import KeywordController from './api/controllers/keywordController';
 
 const PORT = 4003;
 
@@ -24,6 +25,9 @@ process.on('unhandledRejection', (error: Error) => {
   process.exit(1);
 });
 
-const httpServer = new HttpServer([new LinkController()], PORT);
+const httpServer = new HttpServer(
+  [new LinkController(), new KeywordController()],
+  PORT
+);
 
 httpServer.listen(rootContext, emojiToShow);

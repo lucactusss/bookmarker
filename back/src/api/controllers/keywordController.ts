@@ -3,47 +3,46 @@ import { ValidatorResult } from 'jsonschema';
 import HttpException from '../../infra/errors/HttpException';
 import { IController } from '../../models/api/IController';
 import { formatMissingFields } from '../../utils/error.utils';
-import { validateCreateLink } from '../validators';
-import LinkService from '../../business/link/linkService';
-import { CreateLinkDTO } from '../../business/link/models';
+import { validateCreateKeyword } from '../validators';
+import KeywordService from '../../business/keyword/keywordService';
 import { StatusCodes } from 'http-status-codes';
 
-class LinkController implements IController {
-  public path = '/links';
+class KeywordController implements IController {
+  public path = '/keywords';
 
   public router: express.Router = express.Router();
-  public linkService = new LinkService();
+  public keywordService = new KeywordService();
 
   constructor() {
     this.initializeRoutes();
   }
 
   public initializeRoutes(): void {
-    this.router.post(this.path, this.createLink);
+    this.router.post(this.path, this.createKeyword);
   }
 
   /**
    * @apiVersion 0.0.1
-   * @api {post} /links
-   * @apiName CreateLink
-   * @apiGroup Link
+   * @api {post} /keywords
+   * @apiName CreateKeyword
+   * @apiGroup Keyword
    *
-   * @apiParam {String} url URL of the link
-   * @apiParam {String} linkType Type of link (calculated by front end)
+   * @apiParam {String} label Keyword's Label
+   * @apiParam {String} color Color of the keyword
    *
-   * @apiDescription Endpoint for creating a new link
+   * @apiDescription Endpoint for creating a new keyword
    *
    *
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 201 CREATED
    */
-  createLink = async (
+  createKeyword = async (
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
-      const validationResult: ValidatorResult = validateCreateLink(req.body);
+      const validationResult: ValidatorResult = validateCreateKeyword(req.body);
       if (!validationResult.valid) {
         throw new HttpException(
           StatusCodes.BAD_REQUEST,
@@ -52,9 +51,10 @@ class LinkController implements IController {
       }
       req.context.logger.info(`Create link post ! ${JSON.stringify(req.body)}`);
 
-      const result = await this.linkService.createLink(
+      const result = await this.keywordService.createKeyword(
         req.context,
-        new CreateLinkDTO(req.body.url, req.body.linkType)
+        req.body.label,
+        req.body.color
       );
 
       res.status(StatusCodes.CREATED).send();
@@ -64,4 +64,4 @@ class LinkController implements IController {
   };
 }
 
-export default LinkController;
+export default KeywordController;
