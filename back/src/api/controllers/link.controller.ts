@@ -3,9 +3,14 @@ import { ValidatorResult } from 'jsonschema';
 import HttpException from '../../infra/errors/HttpException';
 import { IController } from '../../models/api/IController';
 import { formatMissingFields } from '../../utils/error.utils';
-import { validateCreateLink, validateGetLinkList } from '../validators';
-import LinkService from '../../business/link/linkService';
 import {
+  validateAddKeywordToLink,
+  validateCreateLink,
+  validateGetLinkList,
+} from '../validators';
+import LinkService from '../../business/link/link.service';
+import {
+  AddKeywordToLinkOptions,
   CreateLinkDTO,
   GetLinkListOptions,
 } from '../../business/link/link.models';
@@ -25,6 +30,11 @@ class LinkController implements IController {
   public initializeRoutes(): void {
     this.router.post(this.path, this.createLink);
     this.router.delete(`${this.path}/:linkId`, this.deleteLink);
+    this.router.post(`${this.path}/:linkId/keyword`, this.addKeywordToLink);
+    this.router.delete(
+      `${this.path}/:linkId/keyword/:keywordId`,
+      this.removeKeywordToLink
+    );
     this.router.post(`${this.path}/data`, this.getLinkList);
   }
 
@@ -123,7 +133,6 @@ class LinkController implements IController {
    *        }
    *     ]
    */
-
   getLinkList = async (
     req: Request,
     res: Response,
@@ -144,6 +153,92 @@ class LinkController implements IController {
       );
 
       res.status(StatusCodes.OK).send(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  /**
+   * @apiVersion 0.0.1
+   * @api {post} /links/:linkId/keyword AddKeywordToLink
+   * @apiName AddKeywordToLink
+   * @apiGroup Link
+   *
+   * @apiParam {string} keywordId internal identifier to the keyword
+   * @apiParam {string} label Label of the keyword
+   * @apiParam {string} color Color of the keyword
+   *
+   * @apiDescription Endpoint for adding a Keyword (existing or not) to an existing Link
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   */
+  addKeywordToLink = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const command = {
+        linkId: req.params.linkId,
+        ...req.body,
+      };
+      const validationResult: ValidatorResult = validateAddKeywordToLink(
+        command
+      );
+      if (!validationResult.valid) {
+        // TODO: Error handling here
+        throw new HttpException(
+          StatusCodes.BAD_REQUEST,
+          'Fields missing : ' + formatMissingFields(validationResult.errors)
+        );
+      }
+      await this.linkService.addKeywordToLink(
+        req.context,
+        new AddKeywordToLinkOptions(
+          command.linkId,
+          command.keywordId,
+          command.color,
+          command.label
+        )
+      );
+
+      res.status(StatusCodes.OK).send();
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  /**
+   * @apiVersion 0.0.1
+   * @api {delete} /links/:linkId/keyword/:keywordId RemoveKeywordToLink
+   * @apiName RemoveKeywordToLink
+   * @apiGroup Link
+   *
+   * @apiDescription Endpoint for removing an existing Keyword to an existing Link
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   */
+  removeKeywordToLink = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      if (!req.params.keywordId || !req.params.linkId) {
+        throw new HttpException(
+          400,
+          'KeywordId and linkId are required in this endpoint !'
+        );
+      }
+      await this.linkService.removeKeywordToLink(
+        req.context,
+        req.params.linkId,
+        req.params.keywordId
+      );
+
+      res.status(StatusCodes.OK).send();
     } catch (error) {
       next(error);
     }

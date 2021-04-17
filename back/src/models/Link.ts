@@ -1,4 +1,5 @@
 import { getModelForClass, prop, Ref } from '@typegoose/typegoose';
+import { WhatIsIt } from '@typegoose/typegoose/lib/internal/constants';
 import { Keyword } from './Keyword';
 
 export enum LinkType {
@@ -32,7 +33,7 @@ export class Link {
   @prop({ type: () => Number, required: false }) // TODO: Maybe change this type
   duration?: number;
 
-  @prop({ ref: () => Keyword })
+  @prop({ ref: () => Keyword }, WhatIsIt.ARRAY)
   public keywords?: Ref<Keyword>[];
 }
 

@@ -10,13 +10,13 @@ class KeywordService {
     context: Context,
     label: string,
     color: string
-  ): Promise<void> {
+  ): Promise<DocumentType<Keyword>> {
     if (!COLOR_REGEXP.test(color)) {
       // TODO: Throw error wrong color with right error type and status code !
       throw new Error('wrong color');
     }
 
-    await KeywordModel.create({ label, color });
+    return await KeywordModel.create({ label, color });
   }
 
   public async updateKeyword(
@@ -64,6 +64,13 @@ class KeywordService {
     })
       .limit(params.pageSize)
       .skip(params.pageSize * (params.pageNumber - 1));
+  }
+
+  public async getKeywordById(
+    context: Context,
+    keywordId: string
+  ): Promise<DocumentType<Keyword> | null> {
+    return await KeywordModel.findById(keywordId);
   }
 }
 

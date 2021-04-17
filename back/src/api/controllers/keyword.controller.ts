@@ -8,7 +8,7 @@ import {
   validateGetKeywordList,
   validateUpdateKeyword,
 } from '../validators';
-import KeywordService from '../../business/keyword/keywordService';
+import KeywordService from '../../business/keyword/keyword.service';
 import { StatusCodes } from 'http-status-codes';
 import { Keyword } from '../../models/Keyword';
 import { GetKeywordListOptions } from '../../business/keyword/keyword.models';
