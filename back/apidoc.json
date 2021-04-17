@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "Bookmarker backend API documentation",
   "title": "Bookmarker backend API",
-  "url": "http://localhost:8000",
-  "sampleUrl": "http://localhost:8000",
+  "url": "http://localhost:4003",
+  "sampleUrl": "http://localhost:4003",
   "template": {
   	"withCompare": true,
   	"withGenerator": true

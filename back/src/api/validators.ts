@@ -1,5 +1,7 @@
 import validateCreateLinkSchema from '../validators/validateCreateLink.json';
 import validateCreateKeywordSchema from '../validators/validateCreateKeyword.json';
+import validateUpdateKeywordSchema from '../validators/validateUpdateKeyword.json';
+import validateGetKeywordListSchema from '../validators/validateGetKeywordList.json'
 import { validate, ValidatorResult } from 'jsonschema';
 
 export function validateCreateLink(body: unknown): ValidatorResult {
@@ -8,4 +10,12 @@ export function validateCreateLink(body: unknown): ValidatorResult {
 
 export function validateCreateKeyword(body: unknown): ValidatorResult {
   return validate(body, validateCreateKeywordSchema);
+}
+
+export function validateUpdateKeyword(body: unknown): ValidatorResult {
+  return validate(body, validateUpdateKeywordSchema);
+}
+
+export function validateGetKeywordList(body: unknown): ValidatorResult {
+  return validate(body, validateGetKeywordListSchema)
 }
