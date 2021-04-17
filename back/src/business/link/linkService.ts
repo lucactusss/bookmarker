@@ -1,15 +1,18 @@
 import { Context } from '../../infra/logging/Context';
-import { CreateLinkDTO } from './models';
+import { CreateLinkDTO, GetLinkListOptions } from './link.models';
 import LinkModel, { Link, LinkType } from '../../models/Link';
-import got from 'got';
+import { DocumentType } from '@typegoose/typegoose';
+import OEmbedDataService from '../oEmbed/oEmbedDataService';
 
 class LinkService {
+  private oEmbedDataService = new OEmbedDataService();
+
   public async createLink(
     context: Context,
     data: CreateLinkDTO
   ): Promise<Link> {
     // Handle all metadata from the URL
-    const link = await this.handleOEmbedData(context, data);
+    const link = await this.oEmbedDataService.handleOEmbedData(context, data);
 
     return await LinkModel.create({
       url: link.url,
@@ -19,36 +22,28 @@ class LinkService {
       linkType: data.linkType as LinkType,
       width: link.width,
       height: link.height,
+      duration: link.duration,
     });
   }
 
-  private async handleOEmbedData(
-    context: Context,
-    data: CreateLinkDTO
-  ): Promise<Link> {
-    const link = new Link();
-    link.url = data.url;
-
-    if (data.linkType === LinkType.PHOTO) {
-      const finalUrl = `http://www.flickr.com/services/oembed/?format=json&url=${encodeURI(
-        link.url
-      )}`;
-
-      const result = await got(finalUrl, {
-        responseType: 'json',
-        resolveBodyOnly: true,
-      });
-
-      if (result) {
-        link.author = (result as any).author_name;
-        link.title = (result as any).title;
-        link.height = (result as any).height;
-        link.width = (result as any).width;
-      } else {
-        // TODO: Handle error
-      }
+  public async deleteLink(context: Context, linkId: string): Promise<void> {
+    const link: DocumentType<Link> | null = await LinkModel.findById(
+      linkId
+    ).exec();
+    if (!link) {
+      // TODO: Error handling here!
+      throw new Error('Link does not exists !');
     }
-    return link;
+    await link.deleteOne();
+  }
+
+  public async getLinkList(
+    context: Context,
+    params: GetLinkListOptions
+  ): Promise<Array<Link>> {
+    return await LinkModel.find()
+      .limit(params.pageSize)
+      .skip(params.pageSize * (params.pageNumber - 1));
   }
 }
 
