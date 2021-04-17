@@ -58,7 +58,7 @@ class KeywordController implements IController {
           'Fields missing : ' + formatMissingFields(validationResult.errors)
         );
       }
-      const result = await this.keywordService.createKeyword(
+      await this.keywordService.createKeyword(
         req.context,
         req.body.label,
         req.body.color

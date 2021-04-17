@@ -10,13 +10,13 @@ class KeywordService {
     context: Context,
     label: string,
     color: string
-  ): Promise<Keyword> {
+  ): Promise<void> {
     if (!COLOR_REGEXP.test(color)) {
       // TODO: Throw error wrong color with right error type and status code !
       throw new Error('wrong color');
     }
 
-    return await KeywordModel.create({ label, color });
+    await KeywordModel.create({ label, color });
   }
 
   public async updateKeyword(
