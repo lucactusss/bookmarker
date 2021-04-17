@@ -58,7 +58,7 @@ class KeywordController implements IController {
           'Fields missing : ' + formatMissingFields(validationResult.errors)
         );
       }
-      const result = await this.keywordService.createKeyword(
+      await this.keywordService.createKeyword(
         req.context,
         req.body.label,
         req.body.color
@@ -72,7 +72,7 @@ class KeywordController implements IController {
 
   /**
    * @apiVersion 0.0.1
-   * @api {patch} /keywords/:keywordId
+   * @api {patch} /keywords/:keywordId UpdateKeyword
    * @apiName UpdateKeyword
    * @apiGroup Keyword
    *
@@ -118,7 +118,7 @@ class KeywordController implements IController {
 
   /**
    * @apiVersion 0.0.1
-   * @api {delete} /keywords/:keywordId
+   * @api {delete} /keywords/:keywordId DeleteKeyword
    * @apiName DeleteKeyword
    * @apiGroup Keyword
    *
@@ -136,7 +136,7 @@ class KeywordController implements IController {
   ): Promise<void> => {
     try {
       if (!req.params.keywordId) {
-        throw new HttpException(400, 'No keywordId fund in the request!');
+        throw new HttpException(400, 'No keywordId found in the request!');
       }
       await this.keywordService.deleteKeyword(
         req.context,
@@ -151,7 +151,7 @@ class KeywordController implements IController {
 
   /**
    * @apiVersion 0.0.1
-   * @api {post} /keywords/data
+   * @api {post} /keywords/data GetKeywordsList
    * @apiName GetKeywordsList
    * @apiGroup Keyword
    *

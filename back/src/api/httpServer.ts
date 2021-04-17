@@ -73,6 +73,7 @@ class HttpServer {
     //Configure Mongoose
     mongoose.connect(configuration.MONGODB.MONGODB_URI, {
       useNewUrlParser: true,
+      useUnifiedTopology: true,
     });
     mongoose.set('debug', true);
   }
