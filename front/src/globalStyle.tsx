@@ -19,4 +19,24 @@ export const GlobalStyles = createGlobalStyle`
     text-rendering: optimizeLegibility;
     transition: all 0.50s linear;
   }
+
+  a {
+    color: ${({ theme }) => theme.url};
+    :visited {
+      color: ${({ theme }) => theme.urlHover};
+    }
+  }
+
+  th {
+    color: ${({ theme }) => theme.text} !important;
+  }
+
+  .MuiInputLabel-outlined {
+    color: ${({ theme }) => theme.text} !important;
+  }
+
+  .ReactModal__Content {
+    background: ${({ theme }) => theme.body} !important;
+    color: ${({ theme }) => theme.text} !important;
+  }
   `;

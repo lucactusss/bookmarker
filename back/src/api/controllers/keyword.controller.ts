@@ -10,7 +10,7 @@ import {
 } from '../validators';
 import KeywordService from '../../business/keyword/keyword.service';
 import { StatusCodes } from 'http-status-codes';
-import { Keyword } from '../../models/Keyword';
+import KeywordModel, { Keyword } from '../../models/Keyword';
 import { GetKeywordListOptions } from '../../business/keyword/keyword.models';
 
 class KeywordController implements IController {
@@ -58,13 +58,13 @@ class KeywordController implements IController {
           'Fields missing : ' + formatMissingFields(validationResult.errors)
         );
       }
-      await this.keywordService.createKeyword(
+      const keyword: Keyword = await this.keywordService.createKeyword(
         req.context,
         req.body.label,
         req.body.color
       );
 
-      res.status(StatusCodes.CREATED).send();
+      res.status(StatusCodes.OK).send(keyword);
     } catch (error) {
       next(error);
     }

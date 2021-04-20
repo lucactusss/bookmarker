@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const StyledThemeToggle = styled.div`
+  padding: 15px;
+
   .toggle--checkbox {
     display: none;
   }
@@ -19,19 +21,19 @@ export const StyledThemeToggle = styled.div`
     /** Show the dimples on the moon **/
   }
   .toggle--checkbox:checked + .toggle--label .toggle--label-background {
-    left: 60px;
-    width: 5px;
+    left: 15px;
+    width: 1px;
   }
   .toggle--checkbox:checked + .toggle--label .toggle--label-background:before {
-    width: 5px;
-    height: 5px;
-    top: -25px;
+    width: 1px;
+    height: 1px;
+    top: -6px;
   }
   .toggle--checkbox:checked + .toggle--label .toggle--label-background:after {
-    width: 5px;
-    height: 5px;
-    left: -30px;
-    top: 20px;
+    width: 1px;
+    height: 1px;
+    left: -7px;
+    top: 5px;
   }
   .toggle--checkbox:checked + .toggle--label:before {
     background: var(--white);
@@ -46,48 +48,51 @@ export const StyledThemeToggle = styled.div`
   }
   .toggle--label {
     /** Placeholder element, starting at blue **/
-    width: 200px;
-    height: 100px;
+    width: 50px;
+    height: 25px;
     background: var(--blue-color);
     border-radius: 100px;
-    border: 5px solid var(--blue-border);
+    border: 1px solid var(--blue-border);
     display: flex;
     position: relative;
     transition: all 350ms ease-in;
     /** The sun cloud and moon stars **/
     /** Sun/Moon element **/
     /** Gray dots on the moon **/
+    :hover {
+      cursor: pointer;
+    }
   }
   .toggle--label-background {
-    width: 10px;
-    height: 5px;
+    width: 2px;
+    height: 1px;
     border-radius: 5px;
     position: relative;
     background: var(--white);
-    left: 135px;
-    top: 45px;
+    left: 33px;
+    top: 11px;
     transition: all 150ms ease-in;
   }
   .toggle--label-background:before {
     content: '';
     position: absolute;
-    top: -5px;
-    width: 40px;
-    height: 5px;
+    top: -1px;
+    width: 10px;
+    height: 1px;
     border-radius: 5px;
     background: var(--white);
-    left: -20px;
+    left: -5px;
     transition: all 150ms ease-in;
   }
   .toggle--label-background:after {
     content: '';
     position: absolute;
-    top: 5px;
-    width: 40px;
-    height: 5px;
+    top: 1px;
+    width: 10px;
+    height: 1px;
     border-radius: 5px;
     background: var(--white);
-    left: -10px;
+    left: -2px;
     transition: all 150ms ease-in;
   }
   .toggle--label:before {
@@ -96,11 +101,11 @@ export const StyledThemeToggle = styled.div`
     animation-fill-mode: forwards;
     transition: all 350ms ease-in;
     content: '';
-    width: 82px;
-    height: 82px;
-    border: 5px solid var(--yellow-border);
-    top: 4px;
-    left: 4px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--yellow-border);
+    top: 1px;
+    left: 1px;
     position: absolute;
     border-radius: 82px;
     background: var(--yellow-background);
@@ -110,12 +115,11 @@ export const StyledThemeToggle = styled.div`
     transition: all 250ms ease-in;
     position: absolute;
     content: '';
-    box-shadow: var(--gray-dots) -13px 0 0 2px,
-      var(--gray-dots) -24px 14px 0 -2px;
-    left: 143px;
-    top: 23px;
-    width: 10px;
-    height: 10px;
+    box-shadow: var(--gray-dots) -3px 0 0 1px, var(--gray-dots) -6px 3px 0 -1px;
+    left: 35px;
+    top: 5px;
+    width: 2px;
+    height: 2px;
     background: transparent;
     border-radius: 50%;
     opacity: 0;
@@ -123,28 +127,28 @@ export const StyledThemeToggle = styled.div`
 
   @keyframes switch {
     0% {
-      left: 4px;
+      left: 1px;
     }
     60% {
-      left: 4px;
-      width: 112px;
+      left: 1px;
+      width: 28px;
     }
     100% {
-      left: 104px;
-      width: 82px;
+      left: 26px;
+      width: 20px;
     }
   }
   @keyframes reverse {
     0% {
-      left: 104px;
-      width: 82px;
+      left: 26px;
+      width: 20px;
     }
     60% {
-      left: 72px;
-      width: 112px;
+      left: 18px;
+      width: 28px;
     }
     100% {
-      left: 4px;
+      left: 1px;
     }
   }
 `;

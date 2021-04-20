@@ -36,6 +36,7 @@ class LinkController implements IController {
       this.removeKeywordToLink
     );
     this.router.post(`${this.path}/data`, this.getLinkList);
+    this.router.get(`${this.path}/count`, this.getLinkListCount);
   }
 
   /**
@@ -153,6 +154,36 @@ class LinkController implements IController {
       );
 
       res.status(StatusCodes.OK).send(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  /**
+   * @apiVersion 0.0.1
+   * @api {get} /links/count GetLinkListCount
+   * @apiName GetLinkListCount
+   * @apiGroup Link
+   *
+   * @apiDescription Endpoint for get links count
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *        "count": 666
+   *     }
+   */
+  getLinkListCount = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const count: number = await this.linkService.getLinkListCount(
+        req.context
+      );
+
+      res.status(StatusCodes.OK).send({ count });
     } catch (error) {
       next(error);
     }

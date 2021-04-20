@@ -55,6 +55,10 @@ class LinkService {
       .skip(params.pageSize * (params.pageNumber - 1));
   }
 
+  public async getLinkListCount(context: Context): Promise<number> {
+    return await LinkModel.count({});
+  }
+
   public async addKeywordToLink(
     context: Context,
     params: AddKeywordToLinkOptions
