@@ -1,7 +1,8 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import './App.css';
-import ThemeToggle from './components/themeToggle/themeToggle';
+import Header from './components/header/Header';
+import MainGrid from './components/LinksGrid/MainGrid';
 import { GlobalStyles } from './globalStyle';
 import { useDarkMode } from './hooks/useDarkMode';
 import { darkTheme, lightTheme } from './theme';
@@ -14,8 +15,8 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={themeMode}>
       <GlobalStyles />
-      <ThemeToggle theme={theme} toggleTheme={themeToggler} />
-      <div className="App">Hello world!</div>
+      <Header theme={theme} toggleTheme={themeToggler}></Header>
+      <MainGrid></MainGrid>
     </ThemeProvider>
   );
 };
