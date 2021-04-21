@@ -1,13 +1,17 @@
 version: "3.7"
 
 services:
-  backend:
+  bookmarker-backend:
     build: ./back/
-    container_name: backend
+    container_name: bookmarker-backend
     ports:
       - "4003:4003"
     depends_on:
       - bookmarker-database
+    links:
+      - bookmarker-database
+    environment: 
+      MONGODB_DB_URI: ${MONGODB_DB_URI:-bookmarker-database}
   bookmarker-database:
     image: mongo:4.2
     container_name: bookmarker-database
@@ -19,3 +23,8 @@ services:
       - ./database/scripts/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     ports:
       - "27017:27017"
+  frontend:
+    build: ./front/
+    container_name: frontend
+    ports:
+      - "80:80"

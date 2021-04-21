@@ -61,7 +61,7 @@ class AddLink extends React.Component<AddLinkProps, AddLinkState> {
           helperText={this.state?.errorMessage}
         />
         <Button variant="contained" onClick={(e) => this.handleOnClick()}>
-          Add !
+          Ajouter
         </Button>
       </StyledAddLink>
     );
